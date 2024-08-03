@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "Tabs Copier",
+    "version": "0.1",
+  
+    "description": "This extension lets you copy links of multiple open tabs to clipboard at once.",
+  
+    "icons": {
+      "48": "icons/icon.png"
+    },
+  
+    "content_scripts": [
+      {
+        "matches": ["*://*/*"],
+        "js": ["copier.js"]
+      }
+    ]
+  }
+  
