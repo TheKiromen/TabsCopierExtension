@@ -1,28 +1,19 @@
 // Copy links from all open tabs in the current window
 async function copyAllTabs(params) {
-  // Get all tabs
+  // Get all tabs for current window
   const tabs = await browser.tabs.query({ currentWindow: true });
 
-  // Extract links from tabs
-  let tabsLinks = [];
-  for (const tab of tabs) {
-    if (tab.url) {
-      tabsLinks.push(tab.url);
-    }
-  }
-
-  // TODO: Try to keep list in the same order as tabs in browser
-  // Format links
-  let linksString = "";
-  tabsLinks.forEach((link) => {
-    linksString += link + "\n";
-  })
+  // Save links separated by line break
+  let links = "";
+  tabs.array.forEach(tab => {
+    links += tab.url + "\n";
+  });
 
   // Save to clipboard
-  await navigator.clipboard.writeText(linksString);
+  await navigator.clipboard.writeText(links);
 }
 
-// Copy start up to selected tab
+// Copy from start up to selected tab
 async function copyToActiveTab(params) {
   // Get active tab index
   const activeTab = await browser.tabs.query({ active: true, currentWindow: true });
@@ -41,7 +32,7 @@ browser.contextMenus.create({
   title: "Copy all tabs",
   contexts: ["tab"],
 });
-const setStartingTabindexId = "copy-to-active-tab";
+const copyFromSelectedToActiveTabId = "copy-to-active-tab";
 browser.contextMenus.create({
   id: setStartingTabindexId,
   title: "Copy up to active tab",
@@ -60,7 +51,7 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
     case copyAllLinksId:
       copyAllTabs(tab);
       break;
-    case setStartingTabindexId:
+    case copyFromSelectedToActiveTabId:
       copyToActiveTab(tab);
       break;
     case copyFromIndexToSelectedTabId:
