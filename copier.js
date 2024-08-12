@@ -13,18 +13,22 @@ async function copyAllTabs() {
   await navigator.clipboard.writeText(links);
 }
 
-// Copy from start up to selected tab
-async function copyToActiveTab(params) {
-  // Get active tab index
-  const activeTab = await browser.tabs.query({ active: true, currentWindow: true });
-  await navigator.clipboard.writeText(JSON.stringify(activeTab));
+// Copy from start up to clicked tab
+async function copyToTargetTab(tab) {
+  // Get target tab index
+  const targetTab = tab.index;
+
+  // Save to clipboard
+  await navigator.clipboard.writeText(JSON.stringify(targetTab));
 }
 
-// Copy from selected tab up to the end
-async function copyFromActiveTab(params) {
-  // Get active tab index
-  const activeTab = await browser.tabs.query({ active: true, currentWindow: true });
-  await navigator.clipboard.writeText(JSON.stringify(activeTab));
+// Copy from clicked tab up to the end
+async function copyFromTargetTab(tab) {
+  // Get target tab index
+  const targetTab = tab.index;
+
+  // Save to clipboard
+  await navigator.clipboard.writeText(JSON.stringify(targetTab));
 }
 
 // Create context menu
@@ -34,13 +38,13 @@ browser.contextMenus.create({
   title: "Copy all tabs",
   contexts: ["tab"],
 });
-const copyFromSelectedToActiveTabId = "copy-to-active-tab";
+const copyFromSelectedToActiveTabId = "copy-to-target-tab";
 browser.contextMenus.create({
   id: copyFromSelectedToActiveTabId,
   title: "Copy up to active tab",
   contexts: ["tab"],
 });
-const copyFromIndexToSelectedTabId = "copy-from-active-tab";
+const copyFromIndexToSelectedTabId = "copy-from-target-tab";
 browser.contextMenus.create({
   id: copyFromIndexToSelectedTabId,
   title: "Copy from active tab",
@@ -54,10 +58,10 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
       copyAllTabs();
       break;
     case copyFromSelectedToActiveTabId:
-      copyToActiveTab(tab);
+      copyToTargetTab(tab);
       break;
     case copyFromIndexToSelectedTabId:
-      copyFromActiveTab(tab);
+      copyFromTargetTab(tab);
       break;
   }
 })
