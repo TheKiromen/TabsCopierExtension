@@ -13,13 +13,25 @@ async function copyAllTabs() {
   await navigator.clipboard.writeText(links);
 }
 
+// TODO: Refactor to have only one method with params
 // Copy from start up to clicked tab
 async function copyToTargetTab(tab) {
   // Get target tab index
   const targetTab = tab.index;
 
+  // Get all tabs for current window
+  const tabs = await browser.tabs.query({ currentWindow: true });
+
+  // Save links matching target index
+  let links = "";
+  tabs.forEach(tab => {
+    if(tab.index <= targetTab) {
+      links += tab.url + "\n";
+    }
+  });
+
   // Save to clipboard
-  await navigator.clipboard.writeText(JSON.stringify(targetTab));
+  await navigator.clipboard.writeText(links);
 }
 
 // Copy from clicked tab up to the end
@@ -27,8 +39,19 @@ async function copyFromTargetTab(tab) {
   // Get target tab index
   const targetTab = tab.index;
 
+  // Get all tabs for current window
+  const tabs = await browser.tabs.query({ currentWindow: true });
+
+  // Save links matching target index
+  let links = "";
+  tabs.forEach(tab => {
+    if(tab.index >= targetTab) {
+      links += tab.url + "\n";
+    }
+  });
+
   // Save to clipboard
-  await navigator.clipboard.writeText(JSON.stringify(targetTab));
+  await navigator.clipboard.writeText(links);
 }
 
 // Create context menu
