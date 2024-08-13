@@ -13,9 +13,10 @@ async function copyAllTabs() {
   await navigator.clipboard.writeText(links);
 }
 
-// TODO: Refactor to have only one method with params
-// Copy from start up to clicked tab
-async function copyToTargetTab(tab) {
+// Copy relative to target tab
+async function copyRelativeToTargetTab(tab, copyFromStart) {
+  // TODO: Refactor to have matching based on param, pass some comparator function?
+
   // Get target tab index
   const targetTab = tab.index;
 
@@ -24,31 +25,20 @@ async function copyToTargetTab(tab) {
 
   // Save links matching target index
   let links = "";
-  tabs.forEach(tab => {
-    if(tab.index <= targetTab) {
-      links += tab.url + "\n";
-    }
-  });
-
-  // Save to clipboard
-  await navigator.clipboard.writeText(links);
-}
-
-// Copy from clicked tab up to the end
-async function copyFromTargetTab(tab) {
-  // Get target tab index
-  const targetTab = tab.index;
-
-  // Get all tabs for current window
-  const tabs = await browser.tabs.query({ currentWindow: true });
-
-  // Save links matching target index
-  let links = "";
-  tabs.forEach(tab => {
-    if(tab.index >= targetTab) {
-      links += tab.url + "\n";
-    }
-  });
+  if(copyFromStart){
+    tabs.forEach(tab => {
+      if(tab.index <= targetTab) {
+        links += tab.url + "\n";
+      }
+    });
+  }
+  else{
+    tabs.forEach(tab => {
+      if(tab.index >= targetTab) {
+        links += tab.url + "\n";
+      }
+    });
+  }
 
   // Save to clipboard
   await navigator.clipboard.writeText(links);
@@ -61,15 +51,15 @@ browser.contextMenus.create({
   title: "Copy all tabs",
   contexts: ["tab"],
 });
-const copyFromSelectedToActiveTabId = "copy-to-target-tab";
+const copyFromStartToTargetTabId = "copy-to-target-tab";
 browser.contextMenus.create({
-  id: copyFromSelectedToActiveTabId,
+  id: copyFromStartToTargetTabId,
   title: "Copy up to active tab",
   contexts: ["tab"],
 });
-const copyFromIndexToSelectedTabId = "copy-from-target-tab";
+const copyFromTargetTabToEndId = "copy-from-target-tab";
 browser.contextMenus.create({
-  id: copyFromIndexToSelectedTabId,
+  id: copyFromTargetTabToEndId,
   title: "Copy from active tab",
   contexts: ["tab"],
 });
@@ -80,11 +70,11 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
     case copyAllLinksId:
       copyAllTabs();
       break;
-    case copyFromSelectedToActiveTabId:
-      copyToTargetTab(tab);
+    case copyFromStartToTargetTabId:
+      copyRelativeToTargetTab(tab, true);
       break;
-    case copyFromIndexToSelectedTabId:
-      copyFromTargetTab(tab);
+    case copyFromTargetTabToEndId:
+      copyRelativeToTargetTab(tab, false);
       break;
   }
 })
