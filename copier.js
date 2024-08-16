@@ -1,3 +1,8 @@
+// Comparator functions
+const isGreaterOrEqual = (a,b) => a >= b;
+const isLessOrEqual = (a,b) => a <= b;
+
+
 // Copy links from all open tabs in the current window
 async function copyAllTabs() {
   // Get all tabs for current window
@@ -14,9 +19,7 @@ async function copyAllTabs() {
 }
 
 // Copy relative to target tab
-async function copyRelativeToTargetTab(tab, copyFromStart) {
-  // TODO: Refactor to have matching based on param, pass some comparator function?
-
+async function copyRelativeToTargetTab(tab, comparator) {
   // Get target tab index
   const targetTab = tab.index;
 
@@ -25,20 +28,11 @@ async function copyRelativeToTargetTab(tab, copyFromStart) {
 
   // Save links matching target index
   let links = "";
-  if(copyFromStart){
-    tabs.forEach(tab => {
-      if(tab.index <= targetTab) {
-        links += tab.url + "\n";
-      }
-    });
-  }
-  else{
-    tabs.forEach(tab => {
-      if(tab.index >= targetTab) {
-        links += tab.url + "\n";
-      }
-    });
-  }
+  tabs.forEach(tab => {
+    if(comparator(tab.index, targetTab)) {
+      links += tab.url + "\n";
+    }
+  });
 
   // Save to clipboard
   await navigator.clipboard.writeText(links);
@@ -71,10 +65,10 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
       copyAllTabs();
       break;
     case copyFromStartToTargetTabId:
-      copyRelativeToTargetTab(tab, true);
+      copyRelativeToTargetTab(tab, isLessOrEqual);
       break;
     case copyFromTargetTabToEndId:
-      copyRelativeToTargetTab(tab, false);
+      copyRelativeToTargetTab(tab, isGreaterOrEqual);
       break;
   }
 })
