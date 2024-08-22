@@ -48,13 +48,13 @@ browser.contextMenus.create({
 const copyFromStartToTargetTabId = "copy-to-target-tab";
 browser.contextMenus.create({
   id: copyFromStartToTargetTabId,
-  title: "Copy up to active tab",
+  title: "Copy up to target tab",
   contexts: ["tab"],
 });
 const copyFromTargetTabToEndId = "copy-from-target-tab";
 browser.contextMenus.create({
   id: copyFromTargetTabToEndId,
-  title: "Copy from active tab",
+  title: "Copy from target tab",
   contexts: ["tab"],
 });
 
