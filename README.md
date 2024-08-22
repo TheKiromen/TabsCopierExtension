@@ -13,6 +13,7 @@ I find myself sometimes needing to copy link from multiple tabs to save or send 
 Right click on any tab, at the bottom you will have a context menu with the extension:
 
 ![menu_image](images/menu.PNG)
+
 You will then have 3 aviable options:
 - Copy all tabs - Copies links of all open tabs in currently active window
 - Copy up to target tab - Copies links from start (leftmost) to the clicked tab, both first and target tab are inclusive.
