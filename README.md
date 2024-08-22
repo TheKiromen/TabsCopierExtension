@@ -7,7 +7,7 @@ I find myself sometimes needing to copy link from multiple tabs to save or send 
 
 
 ## How to install
-#### Option 1 - Install from Firefox Addons browser:
+#### Option 1 - Install from Firefox Add-ons browser:
 1. Go to https://addons.mozilla.org/en-US/firefox/addon/tabs-copier/
 2. Click "Add to Firefox"
 3. Done
