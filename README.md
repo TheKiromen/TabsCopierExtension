@@ -18,7 +18,7 @@ I find myself sometimes needing to copy link from multiple tabs to save or send 
     - You can also download it using [this direct link](https://github.com/TheKiromen/TabsCopierExtension/releases/download/v1.0.0/TabsCopier.xpi) 
 2. Firefox should automatically pick it up and prompt you to add the extension:
 
-![prompt_image](images/prompt.PNG)
+![prompt_image](images/prompt.png)
 
 5. Click "Add" and enjoy new addon
    - If it does not open automatically and instead downloads the file then just right click it -> Open with -> select Firefox 
