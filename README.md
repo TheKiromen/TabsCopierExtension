@@ -7,14 +7,28 @@ I find myself sometimes needing to copy link from multiple tabs to save or send 
 
 
 ## How to install
-- TODO
+#### Option 1 - Install from Firefox Addons browser:
+1. Go to https://addons.mozilla.org/en-US/firefox/addon/tabs-copier/
+2. Click "Add to Firefox"
+3. Done
+
+
+#### Option 2 - Manual installation:
+1. Open latest [release](https://github.com/TheKiromen/TabsCopierExtension/releases/tag/v1.0.0) and download `TabsCopier.xpi`
+    - You can also download it using [this direct link](https://github.com/TheKiromen/TabsCopierExtension/releases/download/v1.0.0/TabsCopier.xpi) 
+2. Firefox should automatically pick it up and prompt you to add the extension:
+
+![prompt_image](images/prompt.PNG)
+
+5. Click "Add" and enjoy new addon
+   - If it does not open automatically and instead downloads the file then just right click it -> Open with -> select Firefox 
 
 ## How to use
 Right click on any tab, at the bottom you will have a context menu with the extension:
 
 ![menu_image](images/menu.PNG)
 
-You will then have 3 aviable options:
+You will then have 3 available options:
 - Copy all tabs - Copies links of all open tabs in currently active window
 - Copy up to target tab - Copies links from start (leftmost) to the clicked tab, both first and target tab are inclusive.
 - Copy from target tab - Copies links from the clicked tab to the last (rightmost) one, both target and last tab are inclusive
