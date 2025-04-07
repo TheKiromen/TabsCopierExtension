@@ -38,6 +38,10 @@ async function copyRelativeToTargetTab(tab, comparator) {
   await navigator.clipboard.writeText(links);
 }
 
+async function openTabsFromCopiedLinks() {
+  console.log("Opening tabs from copied links...");
+}
+
 // Create context menu
 const copyAllLinksId = "copy-all-tabs";
 browser.contextMenus.create({
@@ -57,6 +61,12 @@ browser.contextMenus.create({
   title: "Copy from target tab",
   contexts: ["tab"],
 });
+const openTabsFromCopiedLinksId = "open-tabs-from-copied-links";
+browser.menus.create({
+  id: openTabsFromCopiedLinksId,
+  title: "Open tabs from copied links",
+  contexts: ["tools_menu"],
+});
 
 // Setup listeners
 browser.contextMenus.onClicked.addListener((info, tab) => {
@@ -69,6 +79,9 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
       break;
     case copyFromTargetTabToEndId:
       copyRelativeToTargetTab(tab, isGreaterOrEqual);
+      break;
+    case openTabsFromCopiedLinksId:
+      openTabsFromCopiedLinks();
       break;
   }
 })
