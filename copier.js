@@ -40,6 +40,12 @@ async function copyRelativeToTargetTab(tab, comparator) {
 
 async function openTabsFromCopiedLinks() {
   console.log("Opening tabs from copied links...");
+  var links = getLinksFromClipboard();
+  console.log(links);
+}
+
+function getLinksFromClipboard() {
+  return navigator.clipboard.readText();
 }
 
 // Create context menu
