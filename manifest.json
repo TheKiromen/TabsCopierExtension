@@ -10,7 +10,7 @@
       "64": "icons/icon.png"
     },
   
-    "permissions": ["tabs", "clipboardWrite", "contextMenus", "menus"],
+    "permissions": ["tabs", "clipboardWrite", "clipboardRead", "contextMenus", "menus"],
 
     "background": {
       "scripts": ["copier.js"]
