@@ -39,13 +39,15 @@ async function copyRelativeToTargetTab(tab, comparator) {
 }
 
 async function openTabsFromCopiedLinks() {
-  var links = getLinksFromClipboard();
+  var links = await getLinksFromClipboard();
   console.log(links);
 }
 
 async function getLinksFromClipboard() {
-  var linksString = await navigator.clipboard.readText();
-  return linksString;
+  var text = await navigator.clipboard.readText();
+  // TODO: Use regex to get only links and remove garbage
+  var links = text.split("\n").filter(link => link.length > 0);
+  return links;
 }
 
 // Create context menu
