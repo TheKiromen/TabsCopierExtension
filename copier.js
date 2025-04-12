@@ -5,7 +5,6 @@ const isLessOrEqual = (a,b) => a <= b;
 
 // Copy links from all open tabs in the current window
 async function copyAllTabs() {
-  // Get all tabs for current window
   const tabs = await browser.tabs.query({ currentWindow: true });
 
   // Save links separated by line break
@@ -14,19 +13,16 @@ async function copyAllTabs() {
     links += tab.url + "\n";
   });
 
-  // Save to clipboard
   await navigator.clipboard.writeText(links);
 }
 
 // Copy relative to target tab
 async function copyRelativeToTargetTab(tab, comparator) {
-  // Get target tab index
   const targetTab = tab.index;
 
-  // Get all tabs for current window
   const tabs = await browser.tabs.query({ currentWindow: true });
 
-  // Save links matching target index
+  // Save links specified by target tab based on comparator
   let links = "";
   tabs.forEach(tab => {
     if(comparator(tab.index, targetTab)) {
@@ -38,8 +34,16 @@ async function copyRelativeToTargetTab(tab, comparator) {
   await navigator.clipboard.writeText(links);
 }
 
+// Open tabs from copied links
 async function openTabsFromCopiedLinks() {
   var links = await getLinksFromClipboard();
+
+  if(links.length == 0) {
+    // Exit early if no links in clipboard
+    console.warn("No links found in clipboard.");
+    return;
+  }
+
   links.forEach(link => {
     browser.tabs.create({ 
       url: link,
