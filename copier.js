@@ -40,7 +40,14 @@ async function copyRelativeToTargetTab(tab, comparator) {
 
 async function openTabsFromCopiedLinks() {
   var links = await getLinksFromClipboard();
-  console.log(links);
+  links.forEach(link => {
+    browser.tabs.create({ 
+      url: link,
+      active:false
+    }).catch(err => {
+      console.error("Error opening tab: ", err);
+    });
+  });
 }
 
 async function getLinksFromClipboard() {
