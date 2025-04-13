@@ -60,25 +60,27 @@ async function getLinksFromClipboard() {
   var text = await navigator.clipboard.readText();
 
   // Match URLs in the text
-  var sample = `
-    https://www.youtube.com
-    www.google.com
-    www.a
-    RegExr was created by gskinner.com.
+  // var sample = `
+  //   https://www.youtube.com
+  //   www.google.com
+  //   www.a
+  //   RegExr was created by gskinner.com.
 
-    Edit the Expression & Text to see matches. Roll over matches or the expression for details. PCRE & JavaScript flavors of RegEx are supported. Validate your expression with Tests mode.
+  //   Edit the Expression & Text to see matches. Roll over matches or the expression for details. PCRE & JavaScript flavors of RegEx are supported. Validate your expression with Tests mode.
 
-    The side bar includes a Cheatsheet, full Reference, and Help. You can also Save & Share with the Community and view patterns you create or favorite in My Patterns.
-    https://duckduckgo.com/?t=ffab&q=regex+for+url+validation&ia=web
-    https://stackoverflow.com/questions/161738/what-is-the-best-regular-expression-to-check-if-a-string-is-a-valid-url
-    https://regexr.com/8e2i7
+  //   The side bar includes a Cheatsheet, full Reference, and Help. You can also Save & Share with the Community and view patterns you create or favorite in My Patterns.
+  //   https://duckduckgo.com/?t=ffab&q=regex+for+url+validation&ia=web
+  //   https://stackoverflow.com/questions/161738/what-is-the-best-regular-expression-to-check-if-a-string-is-a-valid-url
+  //   https://regexr.com/8e2i7
 
-    Explore results with the Tools below. Replace & List output custom results. Details lists capture groups. Explain describes your expression in plain English.
-    `;
-  var matches = sample.match(urlPattern);
+  //   Explore results with the Tools below. Replace & List output custom results. Details lists capture groups. Explain describes your expression in plain English.
+  //   `;
+  var sample = "test";
+  var matches = sample.match("test");
   console.log("Matches: ", matches);
 
   var links = text.split("\n").filter(link => link.length > 0);
+  return [];
   return links;
 }
 
