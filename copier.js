@@ -1,3 +1,5 @@
+const urlPattern = "((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)"
+
 // Comparator functions
 const isGreaterOrEqual = (a,b) => a >= b;
 const isLessOrEqual = (a,b) => a <= b;
@@ -56,7 +58,26 @@ async function openTabsFromCopiedLinks() {
 
 async function getLinksFromClipboard() {
   var text = await navigator.clipboard.readText();
-  // TODO: Use regex to get only links and remove garbage
+
+  // Match URLs in the text
+  var sample = `
+    https://www.youtube.com
+    www.google.com
+    www.a
+    RegExr was created by gskinner.com.
+
+    Edit the Expression & Text to see matches. Roll over matches or the expression for details. PCRE & JavaScript flavors of RegEx are supported. Validate your expression with Tests mode.
+
+    The side bar includes a Cheatsheet, full Reference, and Help. You can also Save & Share with the Community and view patterns you create or favorite in My Patterns.
+    https://duckduckgo.com/?t=ffab&q=regex+for+url+validation&ia=web
+    https://stackoverflow.com/questions/161738/what-is-the-best-regular-expression-to-check-if-a-string-is-a-valid-url
+    https://regexr.com/8e2i7
+
+    Explore results with the Tools below. Replace & List output custom results. Details lists capture groups. Explain describes your expression in plain English.
+    `;
+  var matches = sample.match(urlPattern);
+  console.log("Matches: ", matches);
+
   var links = text.split("\n").filter(link => link.length > 0);
   return links;
 }
