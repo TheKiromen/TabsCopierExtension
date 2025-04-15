@@ -1,5 +1,5 @@
-// TODO: Try to improve this pattern to exclude links with no suffix
-const urlPattern = "((([A-Za-z]{3,9}:(?:\\/\\/)?)(?:[-;:&=\\+\\$,\\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\\+\\$,\\w]+@)[A-Za-z0-9.-]+)((?:\\/[\\+~%\\/.\\w_]*)?\\??(?:[-\\+=&;%@.\\w_]*)#?(?:[\\w]*))?)"
+// TODO: Make http/https optional to catch urls with no protocol
+const fullyQualifiedUrlPattern = "https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)";
 
 // Comparator functions
 const isGreaterOrEqual = (a,b) => a >= b;
@@ -75,7 +75,12 @@ async function getLinksFromClipboard() {
 
     Explore results with the Tools below. Replace & List output custom results. Details lists capture groups. Explain describes your expression in plain English.
     `;
-  var matches = text.matchAll(urlPattern);
+  var matches = text.matchAll(fullyQualifiedUrlPattern);
+  
+  matches.forEach(match => {
+    console.log(match[0]);
+  });
+
   return Array.from(matches).map(match => {
     if(match[0].startsWith("www.")) {
       return "https://" + match[0];
