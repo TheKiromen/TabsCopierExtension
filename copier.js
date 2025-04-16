@@ -32,7 +32,6 @@ async function copyRelativeToTargetTab(tab, comparator) {
     }
   });
 
-  // Save to clipboard
   await navigator.clipboard.writeText(links);
 }
 
@@ -40,20 +39,13 @@ async function copyRelativeToTargetTab(tab, comparator) {
 async function openTabsFromCopiedLinks() {
   var links = await getLinksFromClipboard();
 
+  // Exit early if no links in clipboard
   if(links.length == 0) {
-    // Exit early if no links in clipboard
     console.warn("No links found in clipboard.");
     return;
   }
 
   links.forEach(link => {
-    // If link doesn't start with http(s) log warning and skip
-    if(!link.startsWith("http")) {
-      console.warn("Invalid link: ", link);
-      return;
-    }
-
-    // Open link in new tab
     browser.tabs.create({ 
       url: link,
       active:false
@@ -66,15 +58,28 @@ async function openTabsFromCopiedLinks() {
 async function getLinksFromClipboard() {
   var text = await navigator.clipboard.readText();
 
-  var matches = text.matchAll(urlMatchingPattern);
-  
-  return Array.from(matches).map(match => {
+  // Add https:// to links that start with "www.", new tab only accepts fully qualified URLs
+  var links = Array.from(text.matchAll(urlMatchingPattern)).map(match => {
     if(match[0].startsWith("www.")) {
       return "https://" + match[0];
     } else {
       return match[0];
     }
   });
+
+  // Remove any invalid links
+  links = links.filter(link => link.startsWith("http"));
+  // If link contains "www." it should contain at least two dots, otherwise at least one dot
+  links = links.filter(link => {
+    var numOfDots = link.split(".").length - 1;
+    if(link.includes("www.")) {
+      return numOfDots >= 2;
+    } else {
+      return numOfDots >= 1;
+    }
+  });
+
+  return links;
 }
 
 // Create context menu
