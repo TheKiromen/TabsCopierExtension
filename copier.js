@@ -47,6 +47,13 @@ async function openTabsFromCopiedLinks() {
   }
 
   links.forEach(link => {
+    // If link doesn't start with http(s) log warning and skip
+    if(!link.startsWith("http")) {
+      console.warn("Invalid link: ", link);
+      return;
+    }
+
+    // Open link in new tab
     browser.tabs.create({ 
       url: link,
       active:false
@@ -59,21 +66,6 @@ async function openTabsFromCopiedLinks() {
 async function getLinksFromClipboard() {
   var text = await navigator.clipboard.readText();
 
-  var text = `
-    https://www.youtube.com
-    www.google.com
-    www.a
-    RegExr was created by gskinner.com.
-
-    Edit the Expression & Text to see matches. Roll over matches or the expression for details. PCRE & JavaScript flavors of RegEx are supported. Validate your expression with Tests mode.
-
-    The side bar includes a Cheatsheet, full Reference, and Help. You can also Save & Share with the Community and view patterns you create or favorite in My Patterns.
-    https://duckduckgo.com/?t=ffab&q=regex+for+url+validation&ia=web
-    https://stackoverflow.com/questions/161738/what-is-the-best-regular-expression-to-check-if-a-string-is-a-valid-url
-    https://regexr.com/8e2i7
-
-    Explore results with the Tools below. Replace & List output custom results. Details lists capture groups. Explain describes your expression in plain English.
-    `;
   var matches = text.matchAll(urlMatchingPattern);
   
   return Array.from(matches).map(match => {
