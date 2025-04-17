@@ -5,6 +5,7 @@ Simple extension for Firefox browser that makes copying links from multiple tabs
 
 I find myself sometimes needing to copy link from multiple tabs to save or send somewhere and its starting to get annoying, so I decided to made this. Most likely wont maintain it long term as I doubt many people will use it, so feel free to fork and modify as you see fit.
 
+This extension also allows user to open all of the links they have saved in clipboard in new tabs.
 
 ## How to install
 #### Option 1 - Install from Firefox Add-ons browser:
