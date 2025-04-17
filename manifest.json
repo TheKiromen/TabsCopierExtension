@@ -1,24 +1,19 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Tabs Copier",
-    "version": "0.1",
+    "version": "0.2",
     "homepage_url": "https://github.com/TheKiromen/TabsCopierExtension",
-    "description": "This extension lets you copy links of multiple open tabs to clipboard at once.",
+    "description": "This extension lets you copy links of multiple open tabs to clipboard at once, or open multiple tabs from links stored in clipboard.",
+    "author": "DKrucze",
   
     "icons": {
       "64": "icons/icon.png"
     },
-    "browser_action": {
-      "default_icon": {
-        "64": "icons/icon.png"
-      }
-    },
   
-    "permissions": ["tabs", "clipboardWrite", "contextMenus"],
+    "permissions": ["tabs", "clipboardWrite", "clipboardRead", "contextMenus", "menus"],
 
     "background": {
       "scripts": ["copier.js"]
-    },
-    "content_scripts": []
+    }
 }
   
