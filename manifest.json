@@ -4,8 +4,7 @@
     "version": "1.2",
     "homepage_url": "https://github.com/TheKiromen/TabsCopierExtension",
     "description": "This extension lets you copy links of multiple open tabs to clipboard at once, or open multiple tabs from links stored in clipboard.",
-    "author": "DKrucze",
-    "extension_id": "tabs-copier-extension",
+    "author": "dkrucze@gmail.com",
   
     "icons": {
       "64": "icons/icon.png"
@@ -15,6 +14,12 @@
 
     "background": {
       "scripts": ["copier.js"]
+    },
+
+    "browser_specific_settings": {
+      "gecko": {
+        "id": "tabs-copier-extension"
+      }
     }
 }
   
