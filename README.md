@@ -15,8 +15,8 @@ This extension also allows user to open all of the links they have saved in clip
 
 
 #### Option 2 - Manual installation:
-1. Open latest [release](https://github.com/TheKiromen/TabsCopierExtension/releases/tag/v1.0.0) and download `TabsCopier.xpi`
-    - You can also download it using [this direct link](https://github.com/TheKiromen/TabsCopierExtension/releases/download/v1.0.0/TabsCopier.xpi) 
+1. Open latest [release](https://github.com/TheKiromen/TabsCopierExtension/releases/tag/v1.2.0) and download `TabsCopier.xpi`
+    - You can also download it using [this direct link](https://github.com/TheKiromen/TabsCopierExtension/releases/download/v1.2.0/TabsCopier_1.2.xpi) 
 2. Firefox should automatically pick it up and prompt you to add the extension:
 
 ![prompt_image](images/prompt.png)
