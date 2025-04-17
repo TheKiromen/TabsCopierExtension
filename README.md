@@ -28,7 +28,8 @@ Right click on any tab, at the bottom you will have a context menu with the exte
 
 ![menu_image](images/menu.PNG)
 
-You will then have 3 available options:
+You will then have 4 available options:
 - Copy all tabs - Copies links of all open tabs in currently active window
 - Copy up to target tab - Copies links from start (leftmost) to the clicked tab, both first and target tab are inclusive.
 - Copy from target tab - Copies links from the clicked tab to the last (rightmost) one, both target and last tab are inclusive
+- Open tabs from copied links - Exatracts links saved in clipboard and opens them in new tabs 
