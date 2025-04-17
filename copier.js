@@ -79,7 +79,7 @@ async function getLinksFromClipboard() {
     }
   });
 
-  return links;
+  return links;  
 }
 
 // Create context menu
@@ -87,31 +87,26 @@ const copyAllLinksId = "copy-all-tabs";
 browser.contextMenus.create({
   id: copyAllLinksId,
   title: "Copy all tabs",
-  contexts: ["tab"],
+  contexts: ["tab"]
 });
 const copyFromStartToTargetTabId = "copy-to-target-tab";
 browser.contextMenus.create({
   id: copyFromStartToTargetTabId,
   title: "Copy up to target tab",
-  contexts: ["tab"],
+  contexts: ["tab"]
 });
 const copyFromTargetTabToEndId = "copy-from-target-tab";
 browser.contextMenus.create({
   id: copyFromTargetTabToEndId,
   title: "Copy from target tab",
-  contexts: ["tab"],
+  contexts: ["tab"]
 });
 const openTabsFromCopiedLinksId = "open-tabs-from-copied-links";
-browser.contextMenus.create({
+browser.menus.create({
   id: openTabsFromCopiedLinksId,
   title: "Open tabs from copied links",
-  contexts: ["tab"],
+  contexts: ["tab", "link", "page"]
 });
-// browser.menus.create({
-//   id: openTabsFromCopiedLinksId,
-//   title: "Open tabs from copied links",
-//   contexts: ["tools_menu"],
-// });
 
 // Setup listeners
 browser.contextMenus.onClicked.addListener((info, tab) => {
